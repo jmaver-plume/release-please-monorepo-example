@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/jmaver-plume/release-please-monorepo-example/compare/multiply-v1.2.0...multiply-v1.3.0) (2025-01-16)
+
+
+### Features
+
+* Add publishing ([#7](https://github.com/jmaver-plume/release-please-monorepo-example/issues/7)) ([407d348](https://github.com/jmaver-plume/release-please-monorepo-example/commit/407d3488582dee5e38659b88fd8e233361608bbc))
+
 ## [1.2.0](https://github.com/jmaver-plume/release-please-monorepo-example/compare/multiply-v1.1.0...multiply-v1.2.0) (2025-01-16)
 
 
