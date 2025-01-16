@@ -4,49 +4,38 @@ on:
   pull_request:
     branches:
       - main
+    paths:
+      - 'packages/**'
+      - .github/workflows/pull-request.yml
 
 jobs:
   pull-request:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           # Needed for the git diff command
           # For more information, see https://stackoverflow.com/questions/71204693/git-diff-not-working-on-github-actions-fatal-bad-object-7100c3bbc34a9667ca9034.
-          fetch-depth: 0
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+          fetch-depth: "${{ github.event.pull_request.commits }}"
+      - uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Get changed packages
-        id: changed
-        run: |
+      - run: npm ci
+      - run: |
           CHANGED_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
-          echo "Changed files: $CHANGED_FILES"
           CHANGED_PACKAGES=$(echo "$CHANGED_FILES" | grep -E '^packages/[^/]+/' | cut -d/ -f2 | sort | uniq | tr '\n' ' ')
-          echo "Changed packages: $CHANGED_PACKAGES"
-          echo "changed_packages=${CHANGED_PACKAGES}" >> $GITHUB_ENV
-
-      - name: Run tests for changed packages
-        run: |
-
+          echo "CHANGED_PACKAGES=$CHANGED_PACKAGES" >> "$GITHUB_OUTPUT"
+        id: changed-packages
+      - run: |
           if [ -z "$CHANGED_PACKAGES" ]; then
             echo "No changed packages. Skipping tests."
             exit 0
           fi
-
           for PACKAGE in $CHANGED_PACKAGES; do
-            echo "Running tests for package: $PACKAGE"
             cd packages/$PACKAGE
-            npm test || exit 1
+            npm run test
             cd -
           done
         env:
-          CHANGED_PACKAGES: ${{ env.changed_packages }}
+          CHANGED_PACKAGES: ${{ steps.changed-packages.outputs.CHANGED_PACKAGES }}
