@@ -1,3 +1,3 @@
 module.exports = {
-  sum: (a, b) => a + b,
+  sum: (...args) => args.reduce((acc, value) => acc + value, 0),
 }
