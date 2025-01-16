@@ -6,7 +6,6 @@
     "difference"
   ],
   "packageManager": "npm@10.9.0",
-  "devDependencies": {},
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -15,5 +14,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "prettier": "^3.4.2"
+  }
 }

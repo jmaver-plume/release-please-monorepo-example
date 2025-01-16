@@ -63,7 +63,9 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: ${{ steps.release.outputs['multiply--release_created'] }}
       - name: Publish sum package
-        run: npm publish --workspace sum
+        run: |
+          npm run build
+          npm publish --workspace sum
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: ${{ steps.release.outputs['sum--release_created'] }}
