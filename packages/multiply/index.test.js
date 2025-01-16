@@ -8,6 +8,6 @@ test('multiply 2 * 3 to equal 6', () => {
   assert.equal(multiply(2, 3), 6);
 })
 
-test('multiply 2 * 3 * 3 to equal 18', () => {
-  assert.equal(multiply(2, 3, 3), 18);
+test('multiply 2 * 3 * 4 to equal 24', () => {
+  assert.equal(multiply(2, 3, 4), 24);
 })
