@@ -9,26 +9,43 @@ jobs:
   pull-request:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
-          # Needed for the git diff command
-          # For more information, see https://stackoverflow.com/questions/71204693/git-diff-not-working-on-github-actions-fatal-bad-object-7100c3bbc34a9667ca9034.
+          # The default fetch-depth is 1, which retrieves only the latest commit and lacks history, causing git diff to fail.
+          # To ensure git diff works, we dynamically calculate the fetch-depth as the total number of commits ($COMMIT_COUNT) plus one.
+          # This provides sufficient commit history without fetching unnecessary data.
           fetch-depth: $(($COMMIT_COUNT+1))
         env:
           COMMIT_COUNT: ${{ github.event.pull_request.commits }}
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: 'npm'
-      - run: npm ci
-      - run: |
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: |
+          # Get the list of changed files between the base and head commits
           CHANGED_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
+          echo "Changed files:"
+          echo "$CHANGED_FILES"
+          
+          # Extract unique package names from the changed files
           CHANGED_PACKAGES=$(echo "$CHANGED_FILES" | grep -E '^(multiply|sum|difference)/' | cut -d/ -f1 | sort | uniq | tr '\n' ' ')
+          echo "Changed packages:"
+          echo "$CHANGED_PACKAGES"
+          
+          # If no packages were changed, skip the tests
           if [ -z "$CHANGED_PACKAGES" ]; then
             echo "No changed packages. Skipping tests."
             exit 0
           fi
+          
+          # Run tests for each changed package
           for PACKAGE in $CHANGED_PACKAGES; do
+            echo "Running tests for package: $PACKAGE"
             cd $PACKAGE
             npm run test
             cd -

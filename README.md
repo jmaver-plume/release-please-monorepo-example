@@ -1,18 +1,19 @@
 # release-please-monorepo-example
 
-## Adding a new package
+## Adding a New Package
 
-> [!NOTE]  
-> This description guides you how to add a new package called `foo` to the monorepo.
+This section describes how to add a new package, `foo`, to the monorepo.
 
-- Add new package to `.release-please-manifest.json`.
+### Steps to Add a New Package
+
+- Add the package to `.release-please-manifest.json`:
 ```
 {
   ...,
   "foo": "0.1.0"
 }
 ```
-- Add new package to `release-please-config.json`.
+- Add the package to `release-please-config.json`.
 ```
 {
   ...
@@ -24,7 +25,7 @@
   }
 }
 ```
-- Add new package `package.json` workspaces.
+- Add the package to `package.json` workspaces.
 ```
 {
   ...,
@@ -34,7 +35,7 @@
   ]
 }
 ```
-- Update `grep` command to find changed packages in GitHub workflows.
+- Update the `grep` command in GitHub workflows for identifying changed packages in tests.
 ```
 # before
 grep -E '^(...)/'
@@ -42,7 +43,7 @@ grep -E '^(...)/'
 # after
 grep -E '^(...|foo)/'
 ```
-- Add new step to `release-please` GitHub workflow.
+- Add a new step to the `release-please` GitHub workflow for publishing the package.
 ```
 ...
       - run: npm publish --workspace foo
@@ -51,4 +52,4 @@ grep -E '^(...|foo)/'
         if: ${{ steps.release.outputs['foo--release_created'] }}
 ```
 - Run `npm install` to update `package-lock.json`.
-- Open a PR and squash merge it with a breaking change commit. This will ensure the new package is released with version `1.0.0`.
+- Open a pull request and squash merge it with a breaking change commit to release the package with version `1.0.0`.
