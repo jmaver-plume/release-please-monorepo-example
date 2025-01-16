@@ -1,5 +1,5 @@
 {
-  "name": "multiply",
+  "name": "@jmaver-plume/multiply",
   "version": "1.2.0",
   "main": "index.js",
   "devDependencies": {},

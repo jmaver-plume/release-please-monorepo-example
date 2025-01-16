@@ -1,5 +1,5 @@
 {
-  "name": "sum",
+  "name": "@jmaver-plume/sum",
   "version": "2.0.0",
   "main": "index.js",
   "scripts": {
