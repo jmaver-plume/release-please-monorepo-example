@@ -17,6 +17,8 @@ jobs:
         with:
           node-version: '22'
           cache: 'npm'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@jmaver-plume'
         if: ${{ steps.release.outputs.releases_created }}
       - run: npm ci
         if: ${{ steps.release.outputs.releases_created }}

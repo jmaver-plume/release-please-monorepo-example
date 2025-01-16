@@ -8,6 +8,6 @@ test('sum 2 + 3 to equal 5', () => {
   assert.equal(sum(2, 3), 5);
 })
 
-test('sum 2 + 3 + 3 to equal 8', () => {
-  assert.equal(sum(2, 3, 3), 8);
+test('sum 2 + 3 + 4 to equal 9', () => {
+  assert.equal(sum(2, 3, 4), 9);
 })
