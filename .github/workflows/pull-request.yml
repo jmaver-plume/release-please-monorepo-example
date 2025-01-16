@@ -25,9 +25,6 @@ jobs:
       - run: |
           CHANGED_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
           CHANGED_PACKAGES=$(echo "$CHANGED_FILES" | grep -E '^packages/[^/]+/' | cut -d/ -f2 | sort | uniq | tr '\n' ' ')
-          echo "CHANGED_PACKAGES=$CHANGED_PACKAGES" >> "$GITHUB_OUTPUT"
-        id: changed-packages
-      - run: |
           if [ -z "$CHANGED_PACKAGES" ]; then
             echo "No changed packages. Skipping tests."
             exit 0
@@ -37,5 +34,3 @@ jobs:
             npm run test
             cd -
           done
-        env:
-          CHANGED_PACKAGES: ${{ steps.changed-packages.outputs.CHANGED_PACKAGES }}
