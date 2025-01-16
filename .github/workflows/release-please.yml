@@ -11,9 +11,15 @@ jobs:
     steps:
       - uses: googleapis/release-please-action@v4
         id: release
+      - uses: actions/checkout@v4
+        if: ${{ steps.release.outputs.release_created }}
+      - uses: actions/setup-node@v4
         with:
-          token: ${{ secrets.RELEASE_PLEASE_PAT_TOKEN }}
-      - run: ls -l
+          node-version: '22'
+          cache: 'npm'
+        if: ${{ steps.release.outputs.release_created }}
+      - run: npm ci
+        if: ${{ steps.release.outputs.release_created }}
       - run: npm publish --workspace packages/multiply
         if: ${{ steps.release.outputs['packages/multiply--release_created'] }}
       - run: npm publish --workspace packages/sum
