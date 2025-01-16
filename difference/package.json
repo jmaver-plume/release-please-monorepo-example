@@ -1,6 +1,6 @@
 {
   "name": "@jmaver-plume/difference",
-  "version": "2.4.1",
+  "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "test": "node --test"
