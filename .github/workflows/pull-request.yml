@@ -30,16 +30,22 @@ jobs:
         run: |
           CHANGED_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
           echo "Changed files: $CHANGED_FILES"
-          CHANGED_PACKAGES=$(echo "$CHANGED_FILES" | grep -E '^packages/[^/]+/' | cut -d/ -f2 | sort | uniq)
+          CHANGED_PACKAGES=$(echo "$CHANGED_FILES" | grep -E '^packages/[^/]+/' | cut -d/ -f2 | sort | uniq | tr '\n' ' ')
           echo "Changed packages: $CHANGED_PACKAGES"
-          echo "changed_packages=$CHANGED_PACKAGES" >> $GITHUB_ENV
+          echo "changed_packages=${CHANGED_PACKAGES}" >> $GITHUB_ENV
 
       - name: Run tests for changed packages
         run: |
+
+          if [ -z "$CHANGED_PACKAGES" ]; then
+            echo "No changed packages. Skipping tests."
+            exit 0
+          fi
+
           for PACKAGE in $CHANGED_PACKAGES; do
             echo "Running tests for package: $PACKAGE"
             cd packages/$PACKAGE
-            npm run test
+            npm test || exit 1
             cd -
           done
         env:
