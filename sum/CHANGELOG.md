@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.1](https://github.com/jmaver-plume/release-please-monorepo-example/compare/sum-v2.5.0...sum-v2.5.1) (2025-01-16)
+
+
+### Bug Fixes
+
+* remove test from sum ([101e4b5](https://github.com/jmaver-plume/release-please-monorepo-example/commit/101e4b594accae5cd8bb8d9cc5d76ed4b5adf80f))
+
 ## [2.5.0](https://github.com/jmaver-plume/release-please-monorepo-example/compare/sum-v2.4.1...sum-v2.5.0) (2025-01-16)
 
 

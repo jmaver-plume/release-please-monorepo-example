@@ -1,7 +1,7 @@
 {
   "name": "@jmaver-plume/sum",
   "description": "Sum library",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "main": "dist/lib/index.js",
   "types": "dist/lib/index.d.ts",
   "files": [
