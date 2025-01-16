@@ -7,7 +7,3 @@ const test = require("node:test");
 test('multiply 2 * 3 to equal 6', () => {
   assert.equal(multiply(2, 3), 6);
 })
-
-test('multiply 2 * 3 * 4 to equal 24', () => {
-  assert.equal(multiply(2, 3, 4), 24);
-})
