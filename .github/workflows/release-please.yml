@@ -12,14 +12,14 @@ jobs:
       - uses: googleapis/release-please-action@v4
         id: release
       - uses: actions/checkout@v4
-        if: ${{ steps.release.outputs.release_created }}
+        if: ${{ steps.release.outputs.releases_created }}
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: 'npm'
-        if: ${{ steps.release.outputs.release_created }}
+        if: ${{ steps.release.outputs.releases_created }}
       - run: npm ci
-        if: ${{ steps.release.outputs.release_created }}
+        if: ${{ steps.release.outputs.releases_created }}
       - run: npm publish --workspace packages/multiply
         if: ${{ steps.release.outputs['packages/multiply--release_created'] }}
       - run: npm publish --workspace packages/sum
