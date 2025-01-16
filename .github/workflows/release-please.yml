@@ -13,6 +13,7 @@ jobs:
         id: release
         with:
           token: ${{ secrets.RELEASE_PLEASE_PAT_TOKEN }}
+      - run: ls -l
       - run: npm publish --workspace packages/multiply
         if: ${{ steps.release.outputs['packages/multiply--release_created'] }}
       - run: npm publish --workspace packages/sum
