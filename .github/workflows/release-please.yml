@@ -22,6 +22,19 @@ jobs:
         if: ${{ steps.release.outputs.releases_created }}
       - run: npm ci
         if: ${{ steps.release.outputs.releases_created }}
+      - run: |
+          CHANGED_FILES=$(git diff --name-only HEAD HEAD~1)
+          CHANGED_PACKAGES=$(echo "$CHANGED_FILES" | grep -E '^packages/[^/]+/' | cut -d/ -f2 | sort | uniq | tr '\n' ' ')
+          if [ -z "$CHANGED_PACKAGES" ]; then
+            echo "No changed packages. Skipping tests."
+            exit 0
+          fi
+          for PACKAGE in $CHANGED_PACKAGES; do
+            cd packages/$PACKAGE
+            npm run test
+            cd -
+          done
+        if: ${{ steps.release.outputs.releases_created }}
       - run: npm publish --workspace packages/multiply
         if: ${{ steps.release.outputs['packages/multiply--release_created'] }}
         env:
