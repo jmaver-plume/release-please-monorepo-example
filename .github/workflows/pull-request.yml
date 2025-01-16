@@ -16,7 +16,9 @@ jobs:
         with:
           # Needed for the git diff command
           # For more information, see https://stackoverflow.com/questions/71204693/git-diff-not-working-on-github-actions-fatal-bad-object-7100c3bbc34a9667ca9034.
-          fetch-depth: 2
+          fetch-depth: $(($COMMIT_COUNT+1))
+        env:
+          COMMIT_COUNT: ${{ github.event.pull_request.commits}}
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
