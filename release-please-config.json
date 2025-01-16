@@ -1,10 +1,10 @@
 {
   "separate-pull-requests": true,
   "packages": {
-    "packages/multiply": {
+    "multiply": {
       "release-type": "node"
     },
-    "packages/sum": {
+    "sum": {
       "release-type": "node"
     }
   },

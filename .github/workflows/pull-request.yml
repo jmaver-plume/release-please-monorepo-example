@@ -4,9 +4,6 @@ on:
   pull_request:
     branches:
       - main
-    paths:
-      - 'packages/**'
-      - .github/workflows/pull-request.yml
 
 jobs:
   pull-request:
@@ -26,13 +23,13 @@ jobs:
       - run: npm ci
       - run: |
           CHANGED_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
-          CHANGED_PACKAGES=$(echo "$CHANGED_FILES" | grep -E '^packages/[^/]+/' | cut -d/ -f2 | sort | uniq | tr '\n' ' ')
+          CHANGED_PACKAGES=$(echo "$CHANGED_FILES" | grep -E '^(multiply|sum)/' | cut -d/ -f2 | sort | uniq | tr '\n' ' ')
           if [ -z "$CHANGED_PACKAGES" ]; then
             echo "No changed packages. Skipping tests."
             exit 0
           fi
           for PACKAGE in $CHANGED_PACKAGES; do
-            cd packages/$PACKAGE
+            cd $PACKAGE
             npm run test
             cd -
           done

@@ -1,4 +1,4 @@
 {
-  "packages/sum": "2.4.1",
-  "packages/multiply": "3.0.0"
+  "sum": "2.4.1",
+  "multiply": "3.0.0"
 }

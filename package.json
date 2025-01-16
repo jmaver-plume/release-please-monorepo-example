@@ -1,7 +1,8 @@
 {
   "name": "monorepo-package-prototype",
   "workspaces": [
-    "packages/*"
+    "multiply",
+    "sum"
   ],
   "packageManager": "npm@10.9.0",
   "devDependencies": {},

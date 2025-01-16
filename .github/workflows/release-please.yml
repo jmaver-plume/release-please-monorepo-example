@@ -16,8 +16,8 @@ jobs:
           # By default, the fetch-depth is 1, which is only the latest commit without history, which breaks the git diff command.
           # We could write a complex calculation to calculate number of commits to fetch, but people should not commit many commits to main directly (usually it's going to be one commit).
           # As such it's simpler to just fetch a certain amount of commits, which is more than enough for the git diff command.
-          fetch-depth: 1000
-        # if: ${{ steps.release.outputs.releases_created }}
+          fetch-depth: 10
+        if: ${{ steps.release.outputs.releases_created }}
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -29,22 +29,22 @@ jobs:
         if: ${{ steps.release.outputs.releases_created }}
       - run: |
           CHANGED_FILES=$(git diff --name-only HEAD HEAD~1)
-          CHANGED_PACKAGES=$(echo "$CHANGED_FILES" | grep -E '^packages/[^/]+/' | cut -d/ -f2 | sort | uniq | tr '\n' ' ')
+          CHANGED_PACKAGES=$(echo "$CHANGED_FILES" | grep -E '^(multiply|sum)/' | cut -d/ -f2 | sort | uniq | tr '\n' ' ')
           if [ -z "$CHANGED_PACKAGES" ]; then
             echo "No changed packages. Skipping tests."
             exit 0
           fi
           for PACKAGE in $CHANGED_PACKAGES; do
-            cd packages/$PACKAGE
+            cd $PACKAGE
             npm run test
             cd -
           done
         if: ${{ steps.release.outputs.releases_created }}
-      - run: npm publish --workspace packages/multiply
+      - run: npm publish --workspace multiply
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        if: ${{ steps.release.outputs['packages/multiply--release_created'] }}
-      - run: npm publish --workspace packages/sum
+        if: ${{ steps.release.outputs['multiply--release_created'] }}
+      - run: npm publish --workspace sum
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        if: ${{ steps.release.outputs['packages/sum--release_created'] }}
+        if: ${{ steps.release.outputs['sum--release_created'] }}
