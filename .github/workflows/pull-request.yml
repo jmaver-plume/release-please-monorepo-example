@@ -23,7 +23,7 @@ jobs:
       - run: npm ci
       - run: |
           CHANGED_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
-          CHANGED_PACKAGES=$(echo "$CHANGED_FILES" | grep -E '^(multiply|sum)/' | cut -d/ -f2 | sort | uniq | tr '\n' ' ')
+          CHANGED_PACKAGES=$(echo "$CHANGED_FILES" | grep -E '^(multiply|sum|difference)/' | cut -d/ -f1 | sort | uniq | tr '\n' ' ')
           if [ -z "$CHANGED_PACKAGES" ]; then
             echo "No changed packages. Skipping tests."
             exit 0

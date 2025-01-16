@@ -1,0 +1,11 @@
+{
+  "name": "@jmaver-plume/difference",
+  "version": "2.4.1",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --test"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  }
+}

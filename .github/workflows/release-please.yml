@@ -29,7 +29,7 @@ jobs:
         if: ${{ steps.release.outputs.releases_created }}
       - run: |
           CHANGED_FILES=$(git diff --name-only HEAD HEAD~1)
-          CHANGED_PACKAGES=$(echo "$CHANGED_FILES" | grep -E '^(multiply|sum)/' | cut -d/ -f2 | sort | uniq | tr '\n' ' ')
+          CHANGED_PACKAGES=$(echo "$CHANGED_FILES" | grep -E '^(multiply|sum|difference)/' | cut -d/ -f1 | sort | uniq | tr '\n' ' ')
           if [ -z "$CHANGED_PACKAGES" ]; then
             echo "No changed packages. Skipping tests."
             exit 0
@@ -48,3 +48,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: ${{ steps.release.outputs['sum--release_created'] }}
+      - run: npm publish --workspace difference
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: ${{ steps.release.outputs['difference--release_created'] }}
