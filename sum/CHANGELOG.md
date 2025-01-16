@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.0](https://github.com/jmaver-plume/release-please-monorepo-example/compare/sum-v2.4.1...sum-v2.5.0) (2025-01-16)
+
+
+### Features
+
+* convert sum to TypeScript ([#23](https://github.com/jmaver-plume/release-please-monorepo-example/issues/23)) ([daae443](https://github.com/jmaver-plume/release-please-monorepo-example/commit/daae4431264843ddbcc56023e70fb3b4835d8813))
+
 ## [2.4.1](https://github.com/jmaver-plume/release-please-monorepo-example/compare/sum-v2.4.0...sum-v2.4.1) (2025-01-16)
 
 
