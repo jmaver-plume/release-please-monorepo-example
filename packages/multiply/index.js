@@ -1,3 +1,3 @@
 module.exports = {
-  multiply: (a, b) => a * b,
+  multiply: (...args) => args.reduce((acc, value) => acc * value, 1),
 }
