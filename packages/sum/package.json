@@ -3,8 +3,7 @@
   "version": "2.4.0",
   "main": "index.js",
   "scripts": {
-    "test": "node --test",
-    "publish": "npm publish"
+    "test": "node --test"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

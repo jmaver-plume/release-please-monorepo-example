@@ -4,8 +4,7 @@
   "main": "index.js",
   "devDependencies": {},
   "scripts": {
-    "test": "node --test",
-    "publish": "npm publish"
+    "test": "node --test"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
