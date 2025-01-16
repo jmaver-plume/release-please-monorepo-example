@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.0](https://github.com/jmaver-plume/release-please-monorepo-example/compare/sum-v2.1.0...sum-v2.2.0) (2025-01-16)
+
+
+### Features
+
+* improve sum ([781b350](https://github.com/jmaver-plume/release-please-monorepo-example/commit/781b350b73ae660c489c9f8d49f7c01cd5da598f))
+
 ## [2.1.0](https://github.com/jmaver-plume/release-please-monorepo-example/compare/sum-v2.0.0...sum-v2.1.0) (2025-01-16)
 
 
