@@ -12,7 +12,7 @@ jobs:
   pull-request:
     runs-on: ubuntu-latest
     steps:
-      - run: jq --version
+      - run: echo "${{ github.event_name }}"
 #      - uses: actions/checkout@v4
 #        with:
 #          # Needed for the git diff command
