@@ -12,9 +12,12 @@ jobs:
       - uses: googleapis/release-please-action@v4
         id: release
       - uses: actions/checkout@v4
-        if: ${{ steps.release.outputs.releases_created }}
         with:
-          fetch-depth: 2
+          # By default, the fetch-depth is 1, which is only the latest commit without history, which breaks the git diff command.
+          # We could write a complex calculation to calculate number of commits to fetch, but people should not commit many commits to main directly (usually it's going to be one commit).
+          # As such it's simpler to just fetch a certain amount of commits, which is more than enough for the git diff command.
+          fetch-depth: 1000
+        # if: ${{ steps.release.outputs.releases_created }}
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -38,10 +41,10 @@ jobs:
           done
         if: ${{ steps.release.outputs.releases_created }}
       - run: npm publish --workspace packages/multiply
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: ${{ steps.release.outputs['packages/multiply--release_created'] }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: npm publish --workspace packages/sum
-        if: ${{ steps.release.outputs['packages/sum--release_created'] }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: ${{ steps.release.outputs['packages/sum--release_created'] }}
