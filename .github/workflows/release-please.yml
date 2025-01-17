@@ -2,16 +2,13 @@ name: release-please
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   release-please:
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
-      - name: Release
-        uses: googleapis/release-please-action@v4
-        id: release
       - name: Checkout code
         uses: actions/checkout@v4
         with:
@@ -19,43 +16,25 @@ jobs:
           # Instead of implementing complex logic to calculate the required commit history, we fetch a fixed number of commits.
           # Fetching 10 commits is sufficient since commits to the main branch are usually squashed into a single commit.
           fetch-depth: 10
+      - name: Validate
+        uses: ./.github/actions/validate
+        with:
+          before: ${{ github.event.before }}
+          after: ${{ github.event.after }}
+      - name: Release
+        uses: googleapis/release-please-action@v4
+        id: release
+      - name: Checkout code
+        uses: actions/checkout@v4
         if: ${{ steps.release.outputs.releases_created }}
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          cache: 'npm'
-          registry-url: 'https://npm.pkg.github.com'
-          scope: '@jmaver-plume'
+          node-version: 22.x
+          registry-url: "https://npm.pkg.github.com"
         if: ${{ steps.release.outputs.releases_created }}
       - name: Install dependencies
         run: npm ci
-        if: ${{ steps.release.outputs.releases_created }}
-      - name: Run tests
-        run: |
-          # Get the list of changed files between the base and head commits
-          CHANGED_FILES=$(git diff --name-only HEAD HEAD~1)
-          echo "Changed files:"
-          echo "$CHANGED_FILES"
-          
-          # Extract unique package names from the changed files
-          CHANGED_PACKAGES=$(echo "$CHANGED_FILES" | grep -E '^(multiply|sum|difference)/' | cut -d/ -f1 | sort | uniq | tr '\n' ' ')
-          echo "Changed packages:"
-          echo "$CHANGED_PACKAGES"
-          
-          # If no packages were changed, skip the tests
-          if [ -z "$CHANGED_PACKAGES" ]; then
-            echo "No changed packages. Skipping tests."
-            exit 0
-          fi
-          
-          # Run tests for each changed package
-          for PACKAGE in $CHANGED_PACKAGES; do
-            echo "Running tests for package: $PACKAGE"
-            cd $PACKAGE
-            npm run test
-            cd -
-          done
         if: ${{ steps.release.outputs.releases_created }}
       - name: Publish multiply package
         run: npm publish --workspace multiply
@@ -64,7 +43,7 @@ jobs:
         if: ${{ steps.release.outputs['multiply--release_created'] }}
       - name: Publish sum package
         run: |
-          npm run build
+          npm run build --workspace sum
           npm publish --workspace sum
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
