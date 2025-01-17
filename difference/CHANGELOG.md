@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/jmaver-plume/release-please-monorepo-example/compare/difference-v1.0.1...difference-v1.0.2) (2025-01-17)
+
+
+### Bug Fixes
+
+* modify all packages to trigger rebuild ([3a65fb1](https://github.com/jmaver-plume/release-please-monorepo-example/commit/3a65fb100299197de86037fbb67e35152d8354b6))
+
 ## [1.0.1](https://github.com/jmaver-plume/release-please-monorepo-example/compare/difference-v1.0.0...difference-v1.0.1) (2025-01-17)
 
 
