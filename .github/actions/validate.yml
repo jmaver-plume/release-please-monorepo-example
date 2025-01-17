@@ -1,0 +1,48 @@
+name: "Validate"
+description: "Run audit, lint, and tests for changed packages"
+inputs:
+  after:
+    required: true
+  before:
+    required: true
+  fetch-depth:
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: ${{ inputs.fetch-depth }}
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22.x
+        registry-url: "https://npm.pkg.github.com"
+    - name: Install dependencies
+      run: npm ci
+    - name: Run tests
+      run: |
+        # Get the list of changed files between the base and head commits
+        CHANGED_FILES=$(git diff --name-only ${{ inputs.after }} ${{ inputs.before }})
+        echo "Changed files:"
+        echo "$CHANGED_FILES"
+
+        # Extract unique package names from the changed files
+        CHANGED_PACKAGES=$(echo "$CHANGED_FILES" | grep -E '^(multiply|sum|difference)/' | cut -d/ -f1 | sort | uniq | tr '\n' ' ')
+        echo "Changed packages:"
+        echo "$CHANGED_PACKAGES"
+
+        # If no packages were changed, skip the tests
+        if [ -z "$CHANGED_PACKAGES" ]; then
+          echo "No changed packages. Skipping tests."
+          exit 0
+        fi
+
+        # Run tests for each changed package
+        for PACKAGE in $CHANGED_PACKAGES; do
+          echo "Running tests for package: $PACKAGE"
+          cd $PACKAGE
+          npm run test
+          cd -
+        done
