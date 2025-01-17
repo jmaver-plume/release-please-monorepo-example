@@ -18,12 +18,9 @@ runs:
       with:
         node-version: 22.x
         registry-url: "https://npm.pkg.github.com"
-    - name: Install dependencies
-      run: npm ci
-      shell: bash
     - name: Run tests
       run: |
-        # Get the list of changed files between the base and head commits
+        # Get the list of changed files between commits
         CHANGED_FILES=$(git diff --name-only ${{ inputs.after }} ${{ inputs.before }})
         echo "Changed files:"
         echo "$CHANGED_FILES"
@@ -33,17 +30,15 @@ runs:
         echo "Changed packages:"
         echo "$CHANGED_PACKAGES"
 
-        # If no packages were changed, skip the tests
+        # If no packages were changed, skip the validation
         if [ -z "$CHANGED_PACKAGES" ]; then
           echo "No changed packages. Skipping tests."
           exit 0
         fi
 
-        # Run tests for each changed package
+        # Validate each changed package
         for PACKAGE in $CHANGED_PACKAGES; do
-          echo "Running tests for package: $PACKAGE"
-          cd $PACKAGE
-          npm run test
-          cd -
+          npm ci -w $PACKAGE
+          npm run test -w $PACKAGE
         done
       shell: bash
