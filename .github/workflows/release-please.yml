@@ -38,16 +38,19 @@ jobs:
         with:
           workspace: multiply
           ref: ${{ steps.release.output['multiply--tag_name'] }}
+          node-auth-token: ${{ secrets.GITHUB_TOKEN }}
         if: ${{ steps.release.outputs['multiply--release_created'] }}
       - name: Publish sum package
         uses: ./.github/actions/publish
         with:
           workspace: sum
           ref: ${{ steps.release.output['sum--tag_name'] }}
+          node-auth-token: ${{ secrets.GITHUB_TOKEN }}
         if: ${{ steps.release.outputs['sum--release_created'] }}
       - name: Publish difference package
         uses: ./.github/actions/publish
         with:
           workspace: difference
           ref: ${{ steps.release.output['difference--tag_name'] }}
+          node-auth-token: ${{ secrets.GITHUB_TOKEN }}
         if: ${{ steps.release.outputs['difference--release_created'] }}
