@@ -19,7 +19,7 @@ jobs:
         env:
           COMMIT_COUNT: ${{ github.event.pull_request.commits }}
       - name: Validate
-        uses: ./.github/actions/validate/action.yml
+        uses: ./.github/actions/validate
         with:
           before: ${{ github.event.pull_request.head.sha }}
           after: ${{ github.event.pull_request.base.sha }}
