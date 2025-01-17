@@ -1,0 +1,4 @@
+{
+  "{lib,text}/**/*.ts": ["prettier --write"],
+  "*.json": ["prettier --write"]
+}

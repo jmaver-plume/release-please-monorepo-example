@@ -1,3 +1,8 @@
+# This composite action is created to encapsulate common steps for running audit, linting, and testing
+# of changed packages. It is utilized across multiple workflows to minimize duplication.
+# For more details on creating composite actions, refer to:
+# https://docs.github.com/en/actions/sharing-automations/creating-actions/creating-a-composite-action
+
 name: "Validate"
 description: "Run audit, lint, and tests for changed packages"
 inputs:
