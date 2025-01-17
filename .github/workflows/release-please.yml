@@ -24,32 +24,30 @@ jobs:
       - name: Release
         uses: googleapis/release-please-action@v4
         id: release
-      - name: Checkout code
-        uses: actions/checkout@v4
-        if: ${{ steps.release.outputs.releases_created }}
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22.x
           registry-url: "https://npm.pkg.github.com"
-        if: ${{ steps.release.outputs.releases_created }}
-      - name: Install dependencies
-        run: npm ci
-        if: ${{ steps.release.outputs.releases_created }}
+        # Bug: Using "if: ${{ steps.release.outputs.releases_created }}" doesn't work as expected.
+        # Workaround: Use "if: ${{ steps.release.outputs.releases_created == 'true' }}" instead.
+        # See issue: https://github.com/googleapis/release-please-action/issues/912
+        if: ${{ steps.release.outputs.releases_created == 'true' }}
       - name: Publish multiply package
-        run: npm publish --workspace multiply
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        if: ${{ steps.release.outputs['multiply--release_created'] }}
+        uses: ./.github/actions/publish
+        with:
+          workspace: multiply
+          ref: ${{ steps.release.output['multiplty--tag_name'] }}
+        if: ${{ steps.release.outputs['multiplty--release_created'] }}
       - name: Publish sum package
-        run: |
-          npm run build --workspace sum
-          npm publish --workspace sum
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: ./.github/actions/publish
+        with:
+          workspace: sum
+          ref: ${{ steps.release.output['sum--tag_name'] }}
         if: ${{ steps.release.outputs['sum--release_created'] }}
       - name: Publish difference package
-        run: npm publish --workspace difference
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: ./.github/actions/publish
+        with:
+          workspace: difference
+          ref: ${{ steps.release.output['difference--tag_name'] }}
         if: ${{ steps.release.outputs['difference--release_created'] }}
