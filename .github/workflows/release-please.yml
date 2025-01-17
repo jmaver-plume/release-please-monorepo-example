@@ -9,15 +9,18 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          # The default fetch-depth is 1, which retrieves only the latest commit and lacks history, breaking the git diff command.
+          # Instead of implementing complex logic to calculate the required commit history, we fetch a fixed number of commits.
+          # Fetching 10 commits is sufficient since commits to the main branch are usually squashed into a single commit.
+          fetch-depth: 10
       - name: Validate
         uses: ./.github/actions/validate.yml
         with:
           before: ${{ github.event.before }}
           after: ${{ github.event.after }}
-          # The default fetch-depth is 1, which retrieves only the latest commit and lacks history, breaking the git diff command.
-          # Instead of implementing complex logic to calculate the required commit history, we fetch a fixed number of commits.
-          # Fetching 10 commits is sufficient since commits to the main branch are usually squashed into a single commit.
-          fetch-depth: 10
       - name: Release
         uses: googleapis/release-please-action@v4
         id: release

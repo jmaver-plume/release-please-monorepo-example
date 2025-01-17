@@ -9,14 +9,17 @@ jobs:
   pull-request:
     runs-on: ubuntu-latest
     steps:
-      - name: Validate
-        uses: ./.github/actions/validate.yml
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
-          before: ${{ github.event.pull_request.head.sha }}
-          after: ${{ github.event.pull_request.base.sha }}
           # The default fetch-depth is 1, which retrieves only the latest commit and lacks history, causing git diff to fail.
           # To ensure git diff works, we dynamically calculate the fetch-depth as the total number of commits ($COMMIT_COUNT) plus one.
           # This provides sufficient commit history without fetching unnecessary data.
           fetch-depth: $(($COMMIT_COUNT+1))
         env:
           COMMIT_COUNT: ${{ github.event.pull_request.commits }}
+      - name: Validate
+        uses: ./.github/actions/validate.yml
+        with:
+          before: ${{ github.event.pull_request.head.sha }}
+          after: ${{ github.event.pull_request.base.sha }}

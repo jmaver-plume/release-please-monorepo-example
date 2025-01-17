@@ -5,15 +5,9 @@ inputs:
     required: true
   before:
     required: true
-  fetch-depth:
-    required: true
 runs:
   using: "composite"
   steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: ${{ inputs.fetch-depth }}
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
