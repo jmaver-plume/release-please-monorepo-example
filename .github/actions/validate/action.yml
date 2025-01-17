@@ -34,7 +34,7 @@ runs:
         for WORKSPACE in "$WORKSPACES[@]"; do
           if [[ " ${CHANGED_DIRS[*]} " =~ [[:space:]]${WORKSPACE}[[:space:]] ]]; then
             npm ci -w $WORKSPACE
-            npm run test -w $WORKSPACE
+            npm run test -w $WORKSPACE --if-present
           fi
         done
       shell: bash

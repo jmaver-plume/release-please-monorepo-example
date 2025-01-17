@@ -1,0 +1,24 @@
+name: "Publish"
+description: "Publish npm workspace to GitHub registry"
+inputs:
+  workspace:
+    description: NPM workspace
+    required: true
+  ref:
+    description: action/checkout@v4 ref
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ inputs.ref }}
+    - name: Publish multiply package
+      run: |
+        npm ci -w ${{ inputs.workspace }}
+        npm run build -w ${{ inputs.workspace }} --if-present
+        npm publish -w ${{ inputs.workspace }}
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      shell: bash
