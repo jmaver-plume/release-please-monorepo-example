@@ -7,6 +7,9 @@ inputs:
   ref:
     description: action/checkout@v4 ref
     required: true
+  node-auth-token:
+    description: Token to publish package to GitHub NPM package repository
+    required: true
 runs:
   using: "composite"
   steps:
@@ -20,5 +23,5 @@ runs:
         npm run build -w ${{ inputs.workspace }} --if-present
         npm publish -w ${{ inputs.workspace }}
       env:
-        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        NODE_AUTH_TOKEN: ${{ inputs.node-auth-token }}
       shell: bash
