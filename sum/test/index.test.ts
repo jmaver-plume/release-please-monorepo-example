@@ -6,4 +6,8 @@ describe("sum", () => {
   test("sum 2 + 3 to equal 5", () => {
     assert.equal(sum(2, 3), 5);
   });
+
+  test("sum 2 + 3 to equal 5", () => {
+    assert.equal(sum(2, 3), 5);
+  });
 });

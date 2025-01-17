@@ -37,8 +37,8 @@ jobs:
         uses: ./.github/actions/publish
         with:
           workspace: multiply
-          ref: ${{ steps.release.output['multiplty--tag_name'] }}
-        if: ${{ steps.release.outputs['multiplty--release_created'] }}
+          ref: ${{ steps.release.output['multiply--tag_name'] }}
+        if: ${{ steps.release.outputs['multiply--release_created'] }}
       - name: Publish sum package
         uses: ./.github/actions/publish
         with:
