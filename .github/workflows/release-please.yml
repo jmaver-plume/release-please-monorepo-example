@@ -17,7 +17,7 @@ jobs:
           # Fetching 10 commits is sufficient since commits to the main branch are usually squashed into a single commit.
           fetch-depth: 10
       - name: Validate
-        uses: ./.github/actions/validate.yml
+        uses: ./.github/actions/validate/action.yml
         with:
           before: ${{ github.event.before }}
           after: ${{ github.event.after }}
