@@ -26,7 +26,7 @@ runs:
         echo "$CHANGED_FILES"
 
         # Extract unique package names from the changed files
-        CHANGED_PACKAGES=$(echo "$CHANGED_FILES" | grep -E '^(multiply|sum|difference)/' | cut -d/ -f1 | sort | uniq | tr '\n' ' ')
+        CHANGED_PACKAGES=$(echo "$CHANGED_FILES" | grep -E '^(multiply|sum|difference)/' || true | cut -d/ -f1 | sort | uniq | tr '\n' ' ')
         echo "Changed packages:"
         echo "$CHANGED_PACKAGES"
 
