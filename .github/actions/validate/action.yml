@@ -7,8 +7,10 @@ name: "Validate"
 description: "Run audit, lint, and tests for changed packages"
 inputs:
   after:
+    description: The SHA of the HEAD commit.
     required: true
   before:
+    description: The SHA of the commit before changes were made.
     required: true
 runs:
   using: "composite"
@@ -20,25 +22,19 @@ runs:
         registry-url: "https://npm.pkg.github.com"
     - name: Run tests
       run: |
-        # Get the list of changed files between commits
-        CHANGED_FILES=$(git diff --name-only ${{ inputs.after }} ${{ inputs.before }})
-        echo "Changed files:"
-        echo "$CHANGED_FILES"
+        # Extract workspaces
+        WORKSPACES=($(jq -r '.workspaces[]' package.json | sort -u))
+        echo "NPM workspaces: $WORKSPACES"
 
-        # Extract unique package names from the changed files
-        CHANGED_PACKAGES=$(echo "$CHANGED_FILES" | grep -E '^(multiply|sum|difference)/' || true | cut -d/ -f1 | sort | uniq | tr '\n' ' ')
-        echo "Changed packages:"
-        echo "$CHANGED_PACKAGES"
+        # Extract changed directories
+        CHANGED_DIRS=($(git diff --name-only ${{ inputs.after }} ${{ inputs.before }} | awk -F/ '/\// {print $1}' | sort -u))
+        echo "Changed directories: $CHANGED_DIRS"
 
-        # If no packages were changed, skip the validation
-        if [ -z "$CHANGED_PACKAGES" ]; then
-          echo "No changed packages. Skipping tests."
-          exit 0
-        fi
-
-        # Validate each changed package
-        for PACKAGE in $CHANGED_PACKAGES; do
-          npm ci -w $PACKAGE
-          npm run test -w $PACKAGE
+        # Validate changed workspaces
+        for WORKSPACE in "$WORKSPACES[@]"; do
+          if [[ " ${CHANGED_DIRS[*]} " =~ [[:space:]]${WORKSPACE}[[:space:]] ]]; then
+            npm ci -w $WORKSPACE
+            npm run test -w $WORKSPACE
+          fi
         done
       shell: bash
