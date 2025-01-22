@@ -1,10 +1,16 @@
 {
   "name": "@jmaver-plume/multiply",
   "version": "3.0.2",
-  "main": "index.js",
-  "devDependencies": {},
+  "main": "lib/index.ts",
   "scripts": {
-    "test": "node --test"
+    "test": "node --require @swc-node/register --test test/**/*.test.ts",
+    "build": "rimraf dist && tsc --project tsconfig.build.json"
+  },
+  "devDependencies": {
+    "@swc-node/register": "^1.10.9",
+    "@types/node": "^22.10.7",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.7.3"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
