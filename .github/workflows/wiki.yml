@@ -1,0 +1,44 @@
+name: Update GitHub Wiki
+
+on:
+  workflow_dispatch:
+
+jobs:
+  update-wiki:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Base Repository
+        uses: actions/checkout@v4
+        with:
+          path: base
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Dependencies
+        run: npm ci --workspaces=false
+        working-directory: base
+      - name: Generate Wiki Contents
+        run: npm run generate:wiki
+        working-directory: base
+      - name: Checkout Wiki Repository
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}.wiki
+          path: wiki
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Copy Wiki Contents
+        run: |
+          rsync -a --delete base/wiki/ wiki/
+      - name: Update Wiki
+        run: |
+          cd wiki
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          git add .
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update GitHub Wiki"
+            git push
+          fi
