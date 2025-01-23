@@ -1,6 +1,5 @@
 {
   "$schema": "https://typedoc.org/schema.json",
-  "outputFileStrategy": "modules",
   "entryFileName": "Home.md",
   "hidePageHeader": true,
   "flattenOutputFiles": true
