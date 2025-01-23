@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: '22'
       - name: Install Dependencies
-        run: npm ci --workspaces=false
+        run: npm ci
         working-directory: base
       - name: Generate Wiki Contents
         run: npm run generate:wiki
