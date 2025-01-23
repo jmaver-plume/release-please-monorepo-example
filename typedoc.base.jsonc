@@ -1,7 +1,3 @@
 {
-  "$schema": "https://typedoc.org/schema.json",
-  "outputFileStrategy": "modules",
-  "flattenOutputFiles": true,
-  "readme": "none",
-  "includeVersion": true
+  "$schema": "https://typedoc.org/schema.json"
 }

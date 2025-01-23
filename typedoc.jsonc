@@ -3,7 +3,5 @@
   "entryPoints": ["sum", "multiply"],
   "out": "wiki",
   "entryPointStrategy": "packages",
-  "plugin": ["typedoc-plugin-markdown", "typedoc-github-wiki-theme"],
-  "outputFileStrategy": "modules",
-  "readme": "none"
+  "plugin": ["typedoc-plugin-markdown", "typedoc-github-wiki-theme"]
 }
