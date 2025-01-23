@@ -8,5 +8,6 @@
     "autoConfiguration": false
   },
   "modulesFileName": "packages",
-  "mergeReadme": true
+  "mergeReadme": true,
+  "flattenOutputFiles": true
 }

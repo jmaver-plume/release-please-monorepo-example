@@ -1,6 +1,8 @@
 {
   "$schema": "https://typedoc.org/schema.json",
-  "entryFileName": "Home.md",
+  "entryFileName": "README",
   "hidePageHeader": true,
-  "flattenOutputFiles": true
+  "flattenOutputFiles": true,
+  "outputFileStrategy": "modules",
+  "mergeReadme": true
 }
