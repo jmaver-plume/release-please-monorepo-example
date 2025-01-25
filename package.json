@@ -1,27 +1,12 @@
 {
-  "name": "monorepo-package-prototype",
   "workspaces": [
     "multiply",
     "sum",
     "difference"
   ],
-  "packageManager": "npm@10.9.0",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "generate:wiki": "typedoc"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "devDependencies": {
     "husky": "^9.1.7",
     "lint-staged": "^15.4.1",
-    "prettier": "^3.4.2",
-    "typedoc": "^0.27.6",
-    "typedoc-github-theme": "^0.2.1",
-    "typedoc-github-wiki-theme": "^2.1.0",
-    "typedoc-plugin-markdown": "^4.4.1"
+    "prettier": "^3.4.2"
   }
 }

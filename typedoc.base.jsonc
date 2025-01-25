@@ -1,8 +1,0 @@
-{
-  "$schema": "https://typedoc.org/schema.json",
-  "entryFileName": "README",
-  "hidePageHeader": true,
-  "flattenOutputFiles": true,
-  "outputFileStrategy": "modules",
-  "mergeReadme": true
-}
