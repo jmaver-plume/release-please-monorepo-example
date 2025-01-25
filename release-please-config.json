@@ -6,10 +6,12 @@
       "release-type": "node"
     },
     "sum": {
-      "release-type": "node"
+      "release-type": "node",
+      "prerelease-type": "alpha"
     },
     "difference": {
-      "release-type": "node"
+      "release-type": "node",
+      "prerelease": true
     }
   }
 }
