@@ -1,0 +1,58 @@
+name: release-please
+
+on:
+  push:
+    branches: ["pre/*"]
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          # The default fetch-depth is 1, which retrieves only the latest commit and lacks history, breaking the git diff command.
+          # Instead of implementing complex logic to calculate the required commit history, we fetch a fixed number of commits.
+          # Fetching 10 commits is sufficient since commits to the main branch are usually squashed into a single commit.
+          fetch-depth: 10
+      - name: Validate
+        uses: ./.github/actions/validate
+        with:
+          before: ${{ github.event.before }}
+          after: ${{ github.event.after }}
+      - name: Release
+        uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          prerelease: true
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          registry-url: "https://npm.pkg.github.com"
+        # Bug: Using "if: ${{ steps.release.outputs.releases_created }}" doesn't work as expected.
+        # Workaround: Use "if: ${{ steps.release.outputs.releases_created == 'true' }}" instead.
+        # See issue: https://github.com/googleapis/release-please-action/issues/912
+        if: ${{ steps.release.outputs.releases_created == 'true' }}
+      - name: Publish multiply package
+        uses: ./.github/actions/publish
+        with:
+          workspace: multiply
+          ref: ${{ steps.release.output['multiply--tag_name'] }}
+          node-auth-token: ${{ secrets.GITHUB_TOKEN }}
+        if: ${{ steps.release.outputs['multiply--release_created'] }}
+      - name: Publish sum package
+        uses: ./.github/actions/publish
+        with:
+          workspace: sum
+          ref: ${{ steps.release.output['sum--tag_name'] }}
+          node-auth-token: ${{ secrets.GITHUB_TOKEN }}
+        if: ${{ steps.release.outputs['sum--release_created'] }}
+      - name: Publish difference package
+        uses: ./.github/actions/publish
+        with:
+          workspace: difference
+          ref: ${{ steps.release.output['difference--tag_name'] }}
+          node-auth-token: ${{ secrets.GITHUB_TOKEN }}
+        if: ${{ steps.release.outputs['difference--release_created'] }}
