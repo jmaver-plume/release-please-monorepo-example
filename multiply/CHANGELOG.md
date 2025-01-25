@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.1.0](https://github.com/jmaver-plume/release-please-monorepo-example/compare/multiply-v3.0.2...multiply-v3.1.0) (2025-01-25)
+
+
+### Features
+
+* convert multiply to typescript ([73816d7](https://github.com/jmaver-plume/release-please-monorepo-example/commit/73816d799618cff4c431368c26af07327af9bdc7))
+
+
+### Bug Fixes
+
+* use correct main ([8655051](https://github.com/jmaver-plume/release-please-monorepo-example/commit/86550511e38bf899a462914b4c117e00b38142e4))
+
 ## [3.0.2](https://github.com/jmaver-plume/release-please-monorepo-example/compare/multiply-v3.0.1...multiply-v3.0.2) (2025-01-17)
 
 
