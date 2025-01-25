@@ -9,7 +9,8 @@
       "release-type": "node"
     },
     "difference": {
-      "release-type": "node"
+      "release-type": "node",
+      "prerelease": true
     }
   }
 }

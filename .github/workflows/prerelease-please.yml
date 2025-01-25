@@ -21,8 +21,6 @@ jobs:
       - name: Release
         uses: googleapis/release-please-action@v4
         id: release
-        with:
-          prerelease: true
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
