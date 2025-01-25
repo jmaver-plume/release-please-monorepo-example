@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0-rc](https://github.com/jmaver-plume/release-please-monorepo-example/compare/difference-v1.0.2...difference-v1.1.0-rc) (2025-01-25)
+
+
+### Features
+
+* Improve difference ([3647939](https://github.com/jmaver-plume/release-please-monorepo-example/commit/364793996b06c473420d288f05c1b7999da66946))
+
 ## [1.0.2](https://github.com/jmaver-plume/release-please-monorepo-example/compare/difference-v1.0.1...difference-v1.0.2) (2025-01-17)
 
 
