@@ -1,3 +1,4 @@
 module.exports = {
-  difference: (a, b) => a - b,
-}
+  difference: (first, ...rest) =>
+    rest.reduce((acc, value) => acc - value, first),
+};

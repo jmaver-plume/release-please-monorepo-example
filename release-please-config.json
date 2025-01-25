@@ -9,7 +9,13 @@
       "release-type": "node"
     },
     "difference": {
-      "release-type": "node"
+      "release-type": "node",
+      "prerelease-type": "rc",
+      "bump-minor-pre-major": false,
+      "bump-patch-for-minor-pre-major": false,
+      "draft": false,
+      "prerelease": true,
+      "versioning": "prerelease"
     }
   }
 }
