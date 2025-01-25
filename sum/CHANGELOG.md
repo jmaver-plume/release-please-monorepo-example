@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.4](https://github.com/jmaver-plume/release-please-monorepo-example/compare/sum-v2.5.3...sum-v2.5.4) (2025-01-25)
+
+
+### Bug Fixes
+
+* use correct main ([8655051](https://github.com/jmaver-plume/release-please-monorepo-example/commit/86550511e38bf899a462914b4c117e00b38142e4))
+
 ## [2.5.3](https://github.com/jmaver-plume/release-please-monorepo-example/compare/sum-v2.5.2...sum-v2.5.3) (2025-01-17)
 
 
