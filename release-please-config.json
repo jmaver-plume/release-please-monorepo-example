@@ -3,7 +3,10 @@
   "separate-pull-requests": true,
   "packages": {
     "multiply": {
-      "release-type": "node"
+      "release-type": "node",
+      "prerelease-type": "beta",
+      "prerelease": true,
+      "versioning": "prerelease"
     },
     "sum": {
       "release-type": "node"

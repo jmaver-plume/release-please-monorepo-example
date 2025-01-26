@@ -1,5 +1,31 @@
 # release-please-monorepo-example
 
+## Creating a prerelease package
+
+This section describes how to create a prerelease for package `foo@1.2.0` to `foo@2.0.0-beta`.
+
+### Steps to Add a New Package
+
+- Create new branch from with `pre/` prefix such as `pre/foo-2` or `pre/foo-2.0.0` (branch naming is irrelevant besides the prefix) and push it to origin.
+- Update `release-please-config.json` to support prerelease. `prerelease-type` can be any value such as beta, alpha, rc etc.
+
+```
+{
+  ...
+  "packages": {
+    ...
+    "foo": {
+      "release-type": "node",
+      "prerelease-type": "beta",
+      "prerelease": true,
+      "versioning": "prerelease"
+    }
+  }
+}
+```
+- Make changes to foo package, and commit and push them(NOTE: at most 100 commits difference is allowed between main and `pre/` branch).
+- Merge prerelease PR created by release-please bot and your package will be created `foo@2.0.0-beta`.
+
 ## Adding a New Package
 
 This section describes how to add a new package, `foo`, to the monorepo.
