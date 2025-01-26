@@ -14,8 +14,8 @@ jobs:
         with:
           # The default fetch-depth is 1, which retrieves only the latest commit and lacks history, breaking the git diff command.
           # Instead of implementing complex logic to calculate the required commit history, we fetch a fixed number of commits.
-          # Fetching 10 commits is sufficient since commits to the main branch are usually squashed into a single commit.
-          fetch-depth: 10
+          # Fetching 100 commits is sufficient since commits to the main branch are usually squashed into a single commit.
+          fetch-depth: 100
       # Fetch the latest commit hash of the main branch to compare with the prerelease branch
       # and determine which services have changed for validation purposes.
       - name: Get main branch commit SHA
