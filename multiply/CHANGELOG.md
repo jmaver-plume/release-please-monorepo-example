@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.0.0](https://github.com/jmaver-plume/release-please-monorepo-example/compare/multiply-v3.1.0...multiply-v4.0.0) (2025-01-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* make breaking change to trigger prerelease
+
+### Features
+
+* make breaking change to trigger prerelease ([9a66a57](https://github.com/jmaver-plume/release-please-monorepo-example/commit/9a66a573d143e1e91cceda4f9ace311acd5ce7cd))
+
 ## [3.1.0](https://github.com/jmaver-plume/release-please-monorepo-example/compare/multiply-v3.0.2...multiply-v3.1.0) (2025-01-25)
 
 
