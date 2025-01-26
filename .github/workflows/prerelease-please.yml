@@ -1,4 +1,4 @@
-name: release-please
+name: prerelease-please
 
 on:
   push:
@@ -16,16 +16,23 @@ jobs:
           # Instead of implementing complex logic to calculate the required commit history, we fetch a fixed number of commits.
           # Fetching 10 commits is sufficient since commits to the main branch are usually squashed into a single commit.
           fetch-depth: 10
+      # Fetch the latest commit hash of the main branch to compare with the prerelease branch
+      # and determine which services have changed for validation purposes.
+      - name: Get main branch commit SHA
+        id: get_main_sha
+        run: |
+          git fetch origin main:refs/remotes/origin/main
+          echo "commit-sha=$(git rev-parse origin/main)" >> "$GITHUB_OUTPUT"
       - name: Validate
         uses: ./.github/actions/validate
         with:
-          before: ${{ github.event.before }}
+          before: ${{ steps.get_main_sha.outputs.commit-sha }}
           after: ${{ github.event.after }}
       - name: Release
         uses: googleapis/release-please-action@v4
         id: release
         with:
-          prerelease: true
+          target-branch: ${{ github.ref_name }}
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
