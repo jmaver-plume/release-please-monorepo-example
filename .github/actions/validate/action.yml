@@ -15,11 +15,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 22.x
-        registry-url: "https://npm.pkg.github.com"
     - name: Run tests
       run: |
         # Extract workspaces
@@ -33,7 +28,6 @@ runs:
         # Validate changed workspaces
         for WORKSPACE in "$WORKSPACES[@]"; do
           if [[ " ${CHANGED_DIRS[*]} " =~ [[:space:]]${WORKSPACE}[[:space:]] ]]; then
-            npm ci -w $WORKSPACE
             npm run test -w $WORKSPACE --if-present
           fi
         done

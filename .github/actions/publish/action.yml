@@ -17,11 +17,11 @@ runs:
       uses: actions/checkout@v4
       with:
         ref: ${{ inputs.ref }}
-    - name: Publish multiply package
-      run: |
-        npm ci -w ${{ inputs.workspace }}
-        npm run build -w ${{ inputs.workspace }} --if-present
-        npm publish -w ${{ inputs.workspace }}
+    - name: Build
+      run: npm run build -w ${{ inputs.workspace }}
+      shell: bash
+    - name: Publish
+      run: npm publish -w ${{ inputs.workspace }}
       env:
         NODE_AUTH_TOKEN: ${{ inputs.node-auth-token }}
       shell: bash
