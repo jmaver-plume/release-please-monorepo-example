@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/jmaver-plume/release-please-monorepo-example/compare/difference-v1.0.2...difference-v1.1.0) (2025-01-30)
+
+
+### Features
+
+* start using pnpm ([#44](https://github.com/jmaver-plume/release-please-monorepo-example/issues/44)) ([1dd9101](https://github.com/jmaver-plume/release-please-monorepo-example/commit/1dd91016ad896f4255dbb76ac8ee53e6f858c003))
+
 ## [1.0.2](https://github.com/jmaver-plume/release-please-monorepo-example/compare/difference-v1.0.1...difference-v1.0.2) (2025-01-17)
 
 
