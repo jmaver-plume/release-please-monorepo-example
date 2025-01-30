@@ -42,6 +42,8 @@ jobs:
         # Workaround: Use "if: ${{ steps.release.outputs.releases_created == 'true' }}" instead.
         # See issue: https://github.com/googleapis/release-please-action/issues/912
         if: ${{ steps.release.outputs.releases_created == 'true' }}
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
       - name: Publish multiply package
         uses: ./.github/actions/publish
         with:
