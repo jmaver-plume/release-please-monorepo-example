@@ -17,21 +17,17 @@ runs:
   steps:
     - name: Run tests
       run: |
-        # 
-        
-        # Extract packages
-        PACKAGES=($(find packages -mindepth 1 -maxdepth 1 -type d | sort -u))
-        echo "Packages: $PACKAGES"
-
-        # Extract changed directories
-        CHANGED_DIRS=($(git diff --name-only ${{ inputs.after }} ${{ inputs.before }} | awk -F/ '{if (NF>1) print $1"/"$2}' | sort -u))
-        echo "Changed directories: $CHANGED_DIRS"
-
-        # Validate changed packages
-        for PACKAGE in "$PACKAGES[@]"; do
-          if [[ " ${CHANGED_DIRS[*]} " =~ [[:space:]]${PACKAGE}[[:space:]] ]]; then
-            pnpm run test --if-present
-            echo "Validated package: $PACKAGE"
-          fi
+        CHANGED_DIRS=$(git diff --name-only ${{ inputs.after }} ${{ inputs.before }} | awk -F/ '{if (NF>1) print $1"/"$2}' | sort -u)
+        PACKAGES=$(find packages -mindepth 1 -maxdepth 1 -type d | sort -u)
+        for PACKAGE in $PACKAGES
+        do
+          for CHANGED_DIR in $CHANGED_DIRS
+          do
+            if [ "$PACKAGE" = "$CHANGED_DIR" ]
+            then
+              pnpm run test --if-present
+              echo "Validated package: $PACKAGE"
+            fi
+          done
         done
       shell: bash
