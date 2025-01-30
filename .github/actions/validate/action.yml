@@ -17,19 +17,5 @@ runs:
   steps:
     - name: Run tests
       run: |
-        CHANGED_DIRS=$(git diff --name-only ${{ inputs.after }} ${{ inputs.before }} | awk -F/ '{if (NF>1) print $1"/"$2}' | sort -u)
-        echo $CHANGED_DIRS
-        PACKAGES=$(find packages -mindepth 1 -maxdepth 1 -type d | sort -u)
-        echo $PACKAGES
-        for PACKAGE in $PACKAGES
-        do
-          for CHANGED_DIR in $CHANGED_DIRS
-          do
-            if [ "$PACKAGE" = "$CHANGED_DIR" ]
-            then
-              echo "Validating package: $PACKAGE"
-              pnpm run --if-present --filter="$PACKAGE" test
-            fi
-          done
-        done
+        pnpm run --if-present --filter="...[${{ inputs.before }}]" test
       shell: bash

@@ -25,8 +25,5 @@ jobs:
           registry-url: "https://npm.pkg.github.com"
       - name: Install pnpm
         uses: pnpm/action-setup@v4
-      - name: Validate
-        uses: ./.github/actions/validate
-        with:
-          before: ${{ github.event.pull_request.head.sha }}
-          after: ${{ github.event.pull_request.base.sha }}
+      - name: Run tests
+        run: pnpm run --if-present --filter="...[${{ github.event.pull_request.head.sha }}]" test

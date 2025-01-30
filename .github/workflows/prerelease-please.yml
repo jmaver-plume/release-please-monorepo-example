@@ -23,11 +23,8 @@ jobs:
         run: |
           git fetch origin main:refs/remotes/origin/main
           echo "commit-sha=$(git rev-parse origin/main)" >> "$GITHUB_OUTPUT"
-      - name: Validate
-        uses: ./.github/actions/validate
-        with:
-          before: ${{ steps.get_main_sha.outputs.commit-sha }}
-          after: ${{ github.event.after }}
+      - name: Run tests
+        run: pnpm run --if-present --filter="...[${{ steps.get_main_sha.outputs.commit-sha }}]" test
       - name: Release
         uses: googleapis/release-please-action@v4
         id: release

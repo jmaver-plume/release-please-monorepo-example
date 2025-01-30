@@ -25,12 +25,8 @@ jobs:
         uses: pnpm/action-setup@v4
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-        shell: bash
-      - name: Validate
-        uses: ./.github/actions/validate
-        with:
-          before: ${{ github.event.before }}
-          after: ${{ github.event.after }}
+      - name: Run tests
+        run: pnpm run --if-present --filter="...[${{ github.event.before }}]" test
       - name: Release
         uses: googleapis/release-please-action@v4
         id: release
