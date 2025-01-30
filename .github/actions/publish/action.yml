@@ -1,8 +1,8 @@
 name: "Publish"
-description: "Publish npm workspace to GitHub registry"
+description: "Publish Package to GitHub registry"
 inputs:
-  workspace:
-    description: NPM workspace
+  package:
+    description: Package to publish
     required: true
   ref:
     description: action/checkout@v4 ref
@@ -17,11 +17,14 @@ runs:
       uses: actions/checkout@v4
       with:
         ref: ${{ inputs.ref }}
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
+      shell: bash
     - name: Build
-      run: npm run build -w ${{ inputs.workspace }}
+      run: pnpm run --filter=${{ inputs.workspace }} build
       shell: bash
     - name: Publish
-      run: npm publish -w ${{ inputs.workspace }}
+      run: pnpm publish --filter=${{ inputs.workspace }}
       env:
         NODE_AUTH_TOKEN: ${{ inputs.node-auth-token }}
       shell: bash

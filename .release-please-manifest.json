@@ -1,5 +1,5 @@
 {
-  "sum": "2.5.4",
-  "multiply": "3.2.0",
-  "difference": "1.0.2"
+  "packages/sum": "2.5.4",
+  "packages/multiply": "3.2.0",
+  "packages/difference": "1.0.2"
 }
