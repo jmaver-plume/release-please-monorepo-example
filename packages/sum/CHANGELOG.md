@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.6.0](https://github.com/jmaver-plume/release-please-monorepo-example/compare/sum-v2.5.4...sum-v2.6.0) (2025-01-30)
+
+
+### Features
+
+* start using pnpm ([#44](https://github.com/jmaver-plume/release-please-monorepo-example/issues/44)) ([1dd9101](https://github.com/jmaver-plume/release-please-monorepo-example/commit/1dd91016ad896f4255dbb76ac8ee53e6f858c003))
+
 ## [2.5.4](https://github.com/jmaver-plume/release-please-monorepo-example/compare/sum-v2.5.3...sum-v2.5.4) (2025-01-25)
 
 
