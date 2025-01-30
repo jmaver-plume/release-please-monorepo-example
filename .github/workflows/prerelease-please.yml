@@ -23,6 +23,8 @@ jobs:
         run: |
           git fetch origin main:refs/remotes/origin/main
           echo "commit-sha=$(git rev-parse origin/main)" >> "$GITHUB_OUTPUT"
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
       - name: Run tests
         run: pnpm run --if-present --filter="...[${{ steps.get_main_sha.outputs.commit-sha }}]" test
       - name: Release
