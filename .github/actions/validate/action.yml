@@ -29,6 +29,7 @@ runs:
         for PACKAGE in "$PACKAGES[@]"; do
           if [[ " ${CHANGED_DIRS[*]} " =~ [[:space:]]${PACKAGE}[[:space:]] ]]; then
             pnpm run test --if-present
+            echo "Validated package: $PACKAGE"
           fi
         done
       shell: bash
