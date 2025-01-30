@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.3.0](https://github.com/jmaver-plume/release-please-monorepo-example/compare/multiply-v3.2.0...multiply-v3.3.0) (2025-01-30)
+
+
+### Features
+
+* start using pnpm ([#44](https://github.com/jmaver-plume/release-please-monorepo-example/issues/44)) ([1dd9101](https://github.com/jmaver-plume/release-please-monorepo-example/commit/1dd91016ad896f4255dbb76ac8ee53e6f858c003))
+
 ## [3.2.0](https://github.com/jmaver-plume/release-please-monorepo-example/compare/multiply-v3.1.0...multiply-v3.2.0) (2025-01-27)
 
 
