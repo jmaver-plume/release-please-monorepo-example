@@ -33,21 +33,21 @@ jobs:
       - name: Publish multiply package
         uses: ./.github/actions/publish
         with:
-          package: packages/multiply
+          package: multiply
           ref: ${{ steps.release.output['packages/multiply--tag_name'] }}
           node-auth-token: ${{ secrets.GITHUB_TOKEN }}
         if: ${{ steps.release.outputs['packages/multiply--release_created'] }}
       - name: Publish sum package
         uses: ./.github/actions/publish
         with:
-          package: packages/sum
+          package: sum
           ref: ${{ steps.release.output['packages/sum--tag_name'] }}
           node-auth-token: ${{ secrets.GITHUB_TOKEN }}
         if: ${{ steps.release.outputs['packages/sum--release_created'] }}
       - name: Publish difference package
         uses: ./.github/actions/publish
         with:
-          package: packages/difference
+          package: difference
           ref: ${{ steps.release.output['packages/difference--tag_name'] }}
           node-auth-token: ${{ secrets.GITHUB_TOKEN }}
         if: ${{ steps.release.outputs['packages/difference--release_created'] }}
