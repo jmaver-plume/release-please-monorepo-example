@@ -17,18 +17,5 @@ runs:
   steps:
     - name: Run tests
       run: |
-        # Extract workspaces
-        WORKSPACES=($(jq -r '.workspaces[]' package.json | sort -u))
-        echo "NPM workspaces: $WORKSPACES"
-
-        # Extract changed directories
-        CHANGED_DIRS=($(git diff --name-only ${{ inputs.after }} ${{ inputs.before }} | awk -F/ '/\// {print $1}' | sort -u))
-        echo "Changed directories: $CHANGED_DIRS"
-
-        # Validate changed workspaces
-        for WORKSPACE in "$WORKSPACES[@]"; do
-          if [[ " ${CHANGED_DIRS[*]} " =~ [[:space:]]${WORKSPACE}[[:space:]] ]]; then
-            npm run test -w $WORKSPACE --if-present
-          fi
-        done
+        pnpm run --if-present --filter="...[${{ inputs.before }}]" test
       shell: bash
